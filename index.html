@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Exploration</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <div class="nav">
+            <img src="planet.png" height="45px" width="45px"/> 
+            <h1>Space Exploration Dashboard</h1>
+    </div>
+    <div class="main">
+        <div>
+            <h2><i>The greatest adventures begin with a single step into the unknown. Dare to explore, and you'll uncover wonders beyond imagination!!</i></h2>
+        </div>
+        <div style="display: flex;flex-direction: column;gap: 30px;">
+            <button id="iss">ISS Tracker</button>
+            <button id="apod">Astronomical pic of the day</button>
+            <button id="mars">Mars Tracking</button>
+        </div>
+    </div>
+    <script>
+        function morph(x) {
+            var menuContents = document.getElementsByClassName('bar')[0];
+            menuContents.classList.toggle('show');
+        }   
+         document.getElementById('iss').addEventListener('click', function() {
+            window.location.href = '/iss'; // Redirect to ISS Tracker page
+        });
+
+        document.getElementById('apod').addEventListener('click', function() {
+            window.location.href = '/apod'; // Redirect to APOD page
+        });
+
+        document.getElementById('mars').addEventListener('click', function() {
+            window.location.href = '/mars'; // Redirect to Mars Tracking page
+        });
+    </script>
+</body>
+</html>
+
+
+

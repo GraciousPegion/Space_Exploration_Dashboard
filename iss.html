@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+        *
+        {
+            margin:0;
+            padding:0;
+            font-family: "Dosis", sans-serif;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .nav
+        {   
+            background-color: rgb(39, 35, 35);
+            padding: 15px;
+            color:  rgba(241, 241, 237, 0.653);
+            text-shadow: 2px 2px rgba(113, 104, 108, 0.639);
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .home:hover
+        {
+            cursor: pointer;
+        }
+        @media screen and (max-width:475px){
+    h1 
+    {
+        font-size: larger;
+    }
+    .rocket
+    {
+        height: 30px;
+        width: 30px;
+    }
+    .himg
+    {
+        height: 20px;
+        width: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="nav">
+            <div style="display: flex;gap:20px">
+            <img src="rocket.png" height="45px" width="45px" class="rocket"/> 
+            <h1>ISS Tracker</h1>
+            </div>
+            <div class="home">
+            <img src="home.png" height="30px" width="30px" class="himg"/>
+            </div>
+    </div>
+    <div id="map"></div>
+    <script>
+        function fetchISSLocation() {
+            fetch('https://api.wheretheiss.at/v1/satellites/25544')
+            .then(response => response.json())
+            .then(data => {
+                const { latitude, longitude } = data;
+   
+                const map = L.map('map').setView([latitude, longitude], 3);
+
+                // Add tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Add marker for ISS
+                const issMarker = L.marker([latitude, longitude]).addTo(map);
+                issMarker.bindPopup(`<b>ISS Location:</b><br>Latitude: ${latitude}<br>Longitude: ${longitude}`).openPopup();
+            })
+            .catch(error => console.error('Error fetching ISS location:', error));
+        }
+        document.getElementsByClassName('home')[0].addEventListener('click', function() {
+            window.location.href = '/home';
+        });
+        window.onload = fetchISSLocation;
+    </script>
+</body>
+</html>

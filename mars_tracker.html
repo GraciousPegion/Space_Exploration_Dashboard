@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+        * 
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: "Dosis", sans-serif;
+        }
+        body{
+            background: linear-gradient(115deg, rgba(40, 58, 126, 0.406), rgba(235, 154, 154, 0.466)),url('./space.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            min-height: 100vh; /* Ensure body fills at least the viewport height */
+            background-position: center;
+            overflow-x: hidden; /* Hide horizontal overflow */
+            background-color: rgba(40, 58, 126, 0.406); /* Background color to fill overflow space */
+        }
+        .nav {
+            background-color: rgb(39, 35, 35);
+            padding: 15px;
+            color: rgba(241, 241, 237, 0.653);
+            text-shadow: 2px 2px rgba(113, 104, 108, 0.639);
+            display: flex;
+            justify-content: space-between;
+        }
+        #images img{
+            height: auto;
+            max-width: 200px;
+        }
+        #images
+        {
+            margin-top: 50px;
+            gap: 50px;
+            color: rgba(241, 241, 237, 0.797);
+            font-size: x-large;
+            font-weight: bold;
+        }
+        #rovers
+        {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-evenly;
+            align-content: center;
+            flex-wrap: wrap;
+            gap:30px;
+            padding-bottom: 30px;
+        }
+        @media screen and (max-width:520px) {
+            video
+            {
+                width: 280px;
+                height: 200px;
+            }
+            #images
+            {
+                font-size: small;
+            }
+            #rovers
+            {
+                margin-top: 20px;
+            }
+        }
+        .home:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div style="display: flex;">
+            <img src="mars.png" height="51px" width="51px" class="rocket"/> 
+            <h1>Mars Tracker</h1>
+        </div>
+        <div class="home">
+            <img src="home.png" height="30px" width="30px" class="himg"/>
+        </div>
+    </div>
+    <div id="images">
+        <p style="text-align: center;">As per 2024 two of the most important rovers in existence are Opportunity and Perseverance </p>
+        <div id="rovers">
+            <div id="opportunity">
+                <video width="500" height="300" controls>
+                    <source src="opportunity.mp4" type="video/mp4">
+                </video><br><br>
+                <div id="opportunityInfo"></div>
+            </div>
+            <div id="perseverance">
+                 <video width="500" height="300" controls>
+                    <source src="Perseverance.mp4" type="video/mp4">
+                </video><br><br>
+                <div id="perseveranceInfo"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const perseveranceURL = "https://api.nasa.gov/mars-photos/api/v1/manifests/Perseverance/?api_key=ja64lXXmNrRymWY628jzf3GFKK9TY0rawXg4BTJY";
+        const opportunityURL = "https://api.nasa.gov/mars-photos/api/v1/manifests/Opportunity/?api_key=ja64lXXmNrRymWY628jzf3GFKK9TY0rawXg4BTJY";
+
+        // Function to fetch and update rover information
+        function fetchAndUpdateRoverInfo(url, divId) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const roverInfo = data.photo_manifest;
+                    const infoDiv = document.getElementById(divId);
+                    infoDiv.innerHTML = `
+                        <p>Name: ${roverInfo.name}</p>
+                        <p>Launch Date: ${roverInfo.launch_date}</p>
+                        <p>Landing Date: ${roverInfo.landing_date}</p>
+                        <p>Status: ${roverInfo.status}</p>
+                        <p>Total Photos: ${roverInfo.total_photos}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+        }
+        fetchAndUpdateRoverInfo(perseveranceURL, 'perseveranceInfo');
+        fetchAndUpdateRoverInfo(opportunityURL, 'opportunityInfo');
+        document.getElementsByClassName('home')[0].addEventListener('click', function() {
+            window.location.href = '/home';
+        });
+    </script>
+</body>
+</html>

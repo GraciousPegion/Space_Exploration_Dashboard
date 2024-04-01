@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+*
+{
+    margin:0;
+    padding:0;
+    font-family: "Dosis", sans-serif;
+}
+body{
+    background: linear-gradient(115deg, rgba(49, 71, 49, 0.525), rgba(50, 81, 56, 0.539)), url('./space1.jpg');
+    height: 100vh;
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.nav
+{
+    background-color: rgb(39, 35, 35);
+    padding: 15px;
+    color:  rgba(241, 241, 237, 0.653);
+    text-shadow: 2px 2px rgba(113, 104, 108, 0.639);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+@media screen and (max-width:475px){
+    h1 
+    {
+        font-size: larger;
+        text-shadow: 1px 1px rgb(201, 93, 136);
+    }    
+    img  
+    {
+        height: 30px;
+        width: 30px;
+    }
+}
+.main
+{
+    margin-top: 100px;
+    font-size: large;
+    text-shadow: 2px 2px rgb(30, 27, 27);
+    color: rgba(241, 241, 237, 0.653);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+    padding: 20px;
+}
+button{
+    padding: 8px;
+    background-color: rgba(37, 83, 209, 0.546);
+    width: 250px;
+    color: rgba(240, 248, 255, 0.705);
+    font-size: large;
+    font-weight: bold;
+}
+button:hover{
+    cursor: pointer;
+}
+@media screen and (max-width:1241px) {
+    .main{
+        margin-top: 50px;
+        gap: 40px;
+    }
+    
+}
